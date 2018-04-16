@@ -25,7 +25,7 @@ public class SenderServiceImpl implements SenderService {
 
     @Override
     public void save(Sender sender) {
-        if (this.findOne(sender.getId()) == null) {
+        if (this.repository.findSenderByHostName(sender.getHostName()) == null) {
             this.repository.save(sender);
         } else {
             throw new IllegalArgumentException();

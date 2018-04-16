@@ -3,7 +3,7 @@ package com.codecool.charity.senders;
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"firstName", "lastName", "hostName", "password", "id"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"hostName", "password", "id"}))
 public class Sender {
 
     @Id

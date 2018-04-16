@@ -11,4 +11,6 @@ public interface SenderRepository extends CrudRepository<Sender, Long> {
     Iterable<Sender> findAll();
 
     Optional<Sender> findById(Long id);
+
+    Sender findSenderByHostName(String hostName);
 }
