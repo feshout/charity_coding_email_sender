@@ -1,6 +1,8 @@
 package com.codecool.charity.mail;
 
+import com.codecool.charity.send.Send;
+
 public interface EmailSender {
 
-    void sendEmail(String to, String subject, String content);
+    void sendEmail(Send send);
 }

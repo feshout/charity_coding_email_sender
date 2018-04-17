@@ -1,8 +1,9 @@
 package com.codecool.charity.mail;
 
+import com.codecool.charity.send.Send;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -19,15 +20,15 @@ public class EmailController {
         this.templateEngine = templateEngine;
     }
 
-    @RequestMapping("/")
-    public String send() {
+    @ResponseBody
+    public String send(Send send) {
         Context context = new Context();
-        context.setVariable("header", "Nowy artykuł na CodeCouple");
-        context.setVariable("title", "#8 Spring Boot – email - szablon i wysyłanie");
-        context.setVariable("description", "Tutaj jakis opis...");
+        context.setVariable("header", send.getSender().getHostName());
+        context.setVariable("title", send.getTemplate().getTitle());
+        context.setVariable("description", send.getTemplate().getDescription());
 
         String body = templateEngine.process("template", context);
-        emailSender.sendEmail("romanowski.mateusz93@gmail.com", "CodeCouple Newsletter", body);
-        return "index";
+        emailSender.sendEmail(send);
+        return body;
     }
 }
