@@ -1,5 +1,6 @@
 package com.codecool.charity.mail;
 
+import com.codecool.charity.send.Send;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -15,16 +16,16 @@ public class EmailSenderImpl implements EmailSender {
     private JavaMailSender sender;
 
     @Override
-    public void sendEmail(String to, String subject, String content) {
+    public void sendEmail(Send send) {
 
         MimeMessage mail = sender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(mail, true);
-            helper.setTo(to);
-            helper.setReplyTo("newsletter@codecouple.pl");
-            helper.setFrom("newsletter@codecouple.pl");
-            helper.setSubject(subject);
-            helper.setText(content, true);
+            helper.setTo(send.getTo());
+            helper.setReplyTo(send.getSender().getHostName());
+            helper.setFrom(send.getSender().getHostName());
+            helper.setSubject(send.getTemplate().getTitle());
+            helper.setText(send.getTemplate().getDescription(), true);
 
         } catch (MessagingException e) {
             e.printStackTrace();
