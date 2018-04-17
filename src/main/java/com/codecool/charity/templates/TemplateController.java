@@ -2,6 +2,7 @@ package com.codecool.charity.templates;
 
 
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.TemplateEngine;
 
 @RestController
 @RequestMapping(path = "/templates")
@@ -19,7 +20,7 @@ public class TemplateController {
     }
 
     @GetMapping(path = "/{id}")
-    public Template getOne(@PathVariable int id){
+    public String getOne(@PathVariable int id){
 
         return templateServcie.getOne(id);
     }

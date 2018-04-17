@@ -3,32 +3,34 @@ package com.codecool.charity.templates;
 
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 @Service
 public class TemplateServiceImpl implements TemplateServcie {
 
     private TemplateRepository templateRepository;
+    private TemplateEngine engine;
 
-    public TemplateServiceImpl(TemplateRepository templateRepository) {
+    @Autowired
+    public TemplateServiceImpl(TemplateRepository templateRepository, TemplateEngine templateEngine) {
         this.templateRepository = templateRepository;
+        this.engine = templateEngine;
     }
 
-    public Template getOne(int id) {
+    public String getOne(int id) {
 
-        Template temp = templateRepository.findById(id);
+        Template template = templateRepository.findById(id);
+        Context context = new Context();
+        context.setVariable("header", template.getHeader());
+        context.setVariable("title", template.getTitle());
+        context.setVariable("description", template.getDescription());
 
-        JtwigTemplate template
-                = JtwigTemplate.classpathTemplate("templates/template.html");
-        JtwigModel model = JtwigModel.newModel();
+        String body = engine.process("template", context);
 
-        model.with("header", temp.getHeader());
-        model.with("title", temp.getTitle());
-        model.with("description", temp.getDescription());
-
-        template.render(model);
-
-        return temp;
+        return body;
     }
 
     public Iterable<Template> getAll(){
