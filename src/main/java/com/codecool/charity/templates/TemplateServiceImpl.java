@@ -1,8 +1,5 @@
 package com.codecool.charity.templates;
 
-
-import org.jtwig.JtwigModel;
-import org.jtwig.JtwigTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
