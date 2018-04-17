@@ -4,5 +4,5 @@ import com.codecool.charity.send.Send;
 
 public interface EmailSender {
 
-    void sendEmail(Send send);
+    void sendEmail(Send send, String body);
 }

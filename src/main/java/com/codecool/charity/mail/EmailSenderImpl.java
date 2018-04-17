@@ -16,16 +16,16 @@ public class EmailSenderImpl implements EmailSender {
     private JavaMailSender sender;
 
     @Override
-    public void sendEmail(Send send) {
+    public void sendEmail(Send send, String body) {
 
         MimeMessage mail = sender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(mail, true);
             helper.setTo(send.getTo());
-            helper.setReplyTo(send.getSender().getHostName());
-            helper.setFrom(send.getSender().getHostName());
+            helper.setReplyTo("bylejakistrink");
+            helper.setFrom("tubyłbylejakihostnejm");
             helper.setSubject(send.getTemplate().getTitle());
-            helper.setText(send.getTemplate().getDescription(), true);
+            helper.setText(body, true);
 
         } catch (MessagingException e) {
             e.printStackTrace();

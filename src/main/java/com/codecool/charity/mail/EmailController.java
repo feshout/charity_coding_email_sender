@@ -23,12 +23,13 @@ public class EmailController {
     @ResponseBody
     public String send(Send send) {
         Context context = new Context();
-        context.setVariable("header", send.getSender().getHostName());
+        context.setVariable("header", send.getTemplate().getHeader());
         context.setVariable("title", send.getTemplate().getTitle());
         context.setVariable("description", send.getTemplate().getDescription());
 
         String body = templateEngine.process("template", context);
-        emailSender.sendEmail(send);
+        emailSender.sendEmail(send, body);
+        System.out.println(body);
         return body;
     }
 }
