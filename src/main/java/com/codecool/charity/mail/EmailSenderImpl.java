@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 
 @Service
 public class EmailSenderImpl implements EmailSender {
@@ -17,6 +21,7 @@ public class EmailSenderImpl implements EmailSender {
 
     @Override
     public void sendEmail(Send send, String body) {
+
 
         MimeMessage mail = sender.createMimeMessage();
         try {
