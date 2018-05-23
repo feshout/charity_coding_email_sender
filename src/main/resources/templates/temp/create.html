@@ -6,12 +6,13 @@
 </head>
 <body>
 <div class="creation">
-    <form method="post" th:action="/templates/add" th:object="${template}">
-        Product Name
+    <h1> Create Template</h1>
+    <form method="post" action="/templates/add/" th:object="${temp}">
+        Header
         <input type="text" th:field="*{header}"/><br/><br/>
-        Description
+        Title
         <input type="text" th:field="*{title}"/><br/><br/>
-        Manufacturer
+        Description
         <input type="text" th:field="*{description}"/><br/><br/>
 
         <input type="submit" value="Save"/>

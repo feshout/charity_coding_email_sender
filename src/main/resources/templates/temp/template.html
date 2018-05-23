@@ -15,13 +15,13 @@
 <body>
 <table width="100%" cellpadding="0" cellspacing="0" bgcolor="0095cc">
     <tr>
-        <td height="50" align="center"><p th:utext="${template.header}">header</p></td>
+        <td height="50" align="center"><p th:name="header" th:utext="${temp.header}">header</p></td>
     </tr>
     <tr bgcolor="ffffff">
-        <td height="100" align="center"><h1 th:utext="${template.title}">title</h1></td>
+        <td height="100" align="center"><h1 th:name="title" th:utext="${temp.title}">title</h1></td>
     </tr>
     <tr bgcolor="ffffff">
-        <td height="100" align="center"><h3 th:utext="${template.description}">description</h3></td>
+        <td height="100" align="center"><h3 th:name="description" th:utext="${temp.description}">description</h3></td>
     </tr>
     <tr>
         <td height="50" align="center"><p>Przeczytaj cały artykuł na <a href="http://codecouple.pl/2016/09/13/7-spring-boot-logowanie-aplikacji-logback/">CodeCouple.pl</a></p></td>

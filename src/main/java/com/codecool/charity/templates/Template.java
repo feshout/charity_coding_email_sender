@@ -8,13 +8,13 @@ public class Template {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String header;
     private String title;
     private String description;
 
 
-    public int getID() {
+    public Long getId() {
         return id;
     }
 
