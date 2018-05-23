@@ -52,11 +52,7 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.jtwig</groupId>
-			<artifactId>jtwig-spring</artifactId>
-			<version>5.87.0.RELEASE</version>
-		</dependency>
+		
 	</dependencies>
 
 	<build>
