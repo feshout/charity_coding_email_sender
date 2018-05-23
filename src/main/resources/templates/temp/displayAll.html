@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <table class="container">
+        <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Header</th>
+            <th>Description</th>
+        </tr>
+        <tr th:each ="template: ${templates}">
+            <td th:utext="${template.title}">...</td>
+            <td th:utext="${template.header}">...</td>
+            <td th:utext="${template.description}">...</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
