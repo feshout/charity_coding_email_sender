@@ -7,26 +7,30 @@ import com.codecool.charity.templates.Template;
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"id", "to"}))
 public class Send {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String to;
+    private String receiver;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+//    cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}
+    @ManyToOne
+    @JoinColumn(name = "sender_id")
     private Sender sender;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+
+//    cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}
+    @OneToOne
+    @JoinColumn(name = "template_id")
     private Template template;
 
     public Long getId() {
         return id;
     }
 
-    public String getTo() {
-        return to;
+    public String getReceiver() {
+        return receiver;
     }
 
     public Sender getSender() {
@@ -37,8 +41,8 @@ public class Send {
         return template;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 
     public void setSender(Sender sender) {
