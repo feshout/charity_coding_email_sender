@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Send</title>
+</head>
+<body>
+<div class="container">
+
+    <form th:method="post" action="/send/" th:object="${sendForm}">
+        Send To:
+        <input type="text" th:field="*{to}"/><br/><br/>
+        <table>
+            <tr>
+                <td>Select Template:</td>
+                <td>
+                    <select th:field="*{templateId}" >
+                        <option th:each="temp : ${temps}"
+                                th:value="${temp.id}"
+                                th:text="${temp.header}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Save"/>
+
+    </form>
+</div>
+
+</body>
+</html>

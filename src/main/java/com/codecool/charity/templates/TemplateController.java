@@ -9,43 +9,45 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/templates")
 public class TemplateController {
 
-    private TemplateServcie templateServcie;
+    private TemplateService templateService;
 
-    public TemplateController(TemplateServcie templateServcie){
-        this.templateServcie = templateServcie;
+    public TemplateController(TemplateService templateService){
+        this.templateService = templateService;
     }
 
     @GetMapping("/")
-    public Iterable<Template> index(){
-        return templateServcie.getAll();
+    public String index(Model model){
+
+        model.addAttribute("templates", templateService.getAll());
+        return "temp/displayAll";
     }
 
-    @GetMapping(path = "/{id}")
-    public String getOne(@PathVariable int id, Model model){
+    @GetMapping("/{id}")
+    public String getOne(@PathVariable Long id, Model model){
 
-        Template template = templateServcie.getOne(id);
+        Template template = templateService.findOne(id);
 
-        model.addAttribute("template", template);
+        model.addAttribute("temp", template);
 
-        return "template";
+        return "temp/template";
     }
 
     @GetMapping("/add")
     public String displayForm(Model model){
 
         Template template = new Template();
-        model.addAttribute("template", template);
+        model.addAttribute("temp", template);
 
-        return "create";
+        return "temp/create";
     }
 
-    @PostMapping(path = "/add")
+    @PostMapping("/add")
     public String create(@ModelAttribute Template template, Model model){
 
-        model.addAttribute("template", template);
+        model.addAttribute("temp", template);
 
-        templateServcie.save(template);
-        return "template";
+        templateService.save(template);
+        return "temp/template";
     }
 
 

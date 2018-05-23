@@ -1,8 +1,8 @@
 package com.codecool.charity.templates;
 
-public interface TemplateServcie {
+public interface TemplateService {
 
-    Template getOne(int id);
+    Template findOne(Long id);
 
     Iterable<Template> getAll();
 

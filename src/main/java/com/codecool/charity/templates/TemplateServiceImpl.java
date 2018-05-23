@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TemplateServiceImpl implements TemplateServcie {
+public class TemplateServiceImpl implements TemplateService {
 
     private TemplateRepository templateRepository;
 
@@ -13,10 +13,9 @@ public class TemplateServiceImpl implements TemplateServcie {
         this.templateRepository = templateRepository;
     }
 
-    public Template getOne(int id) {
+    public Template findOne(Long id) {
 
         return templateRepository.findById(id);
-
     }
 
     public Iterable<Template> getAll(){
