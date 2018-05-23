@@ -2,32 +2,21 @@ package com.codecool.charity.templates;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 
 @Service
 public class TemplateServiceImpl implements TemplateServcie {
 
     private TemplateRepository templateRepository;
-    private TemplateEngine engine;
 
     @Autowired
-    public TemplateServiceImpl(TemplateRepository templateRepository, TemplateEngine templateEngine) {
+    public TemplateServiceImpl(TemplateRepository templateRepository) {
         this.templateRepository = templateRepository;
-        this.engine = templateEngine;
     }
 
-    public String getOne(int id) {
+    public Template getOne(int id) {
 
-        Template template = templateRepository.findById(id);
-        Context context = new Context();
-        context.setVariable("header", template.getHeader());
-        context.setVariable("title", template.getTitle());
-        context.setVariable("description", template.getDescription());
+        return templateRepository.findById(id);
 
-        String body = engine.process("template", context);
-
-        return body;
     }
 
     public Iterable<Template> getAll(){

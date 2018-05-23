@@ -2,7 +2,7 @@ package com.codecool.charity.templates;
 
 public interface TemplateServcie {
 
-    String getOne(int id);
+    Template getOne(int id);
 
     Iterable<Template> getAll();
 
