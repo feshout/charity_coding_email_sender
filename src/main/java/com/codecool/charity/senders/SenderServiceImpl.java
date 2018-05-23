@@ -32,12 +32,11 @@ public class SenderServiceImpl implements SenderService {
     }
 
     @Override
-    public Optional<Sender> findOne(Long id) {
+    public Sender findOne(Long id) {
 
         Optional<Sender> sender = repository.findById(id);
-        sender.ifPresent(this::refreshProperties);
 
-        return sender;
+        return sender.get();
     }
 
     @Override
@@ -50,29 +49,6 @@ public class SenderServiceImpl implements SenderService {
         }
     }
 
-    private void refreshProperties(Sender sender) {
-
-        setUsername(sender.getHostName());
-        setPassword(sender.getPassword());
-
-//        Properties p = new Properties();
-//
-//        try {
-//
-//            FileReader f = new FileReader("src/main/resources/application.properties");
-//
-//            p.load(f);
-//            p.setProperty("spring.mail.username", sender.getHostName());
-//            p.setProperty("spring.mail.password", sender.getPassword());
-//
-//            p.store(new FileWriter("src/main/resources/application.properties"), null);
-//            System.out.println(p.getProperty("spring.mail.username"));
-//            System.out.println(p.getProperty("spring.mail.password"));
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-    }
 
     public String getUsername() {
         return username;

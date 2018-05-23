@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TemplateRepository extends CrudRepository<Template, Integer> {
 
-    Template findById(int id);
+    Template findById(Long id);
     Iterable<Template> findAll();
     Template findTemplateByHeader(String header);
 

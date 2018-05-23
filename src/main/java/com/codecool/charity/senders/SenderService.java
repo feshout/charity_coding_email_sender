@@ -6,5 +6,5 @@ public interface SenderService {
 
     public Iterable<Sender> findAll();
     void save(Sender sender);
-    public Optional<Sender> findOne(Long id);
+    public Sender findOne(Long id);
 }

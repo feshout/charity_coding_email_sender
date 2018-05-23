@@ -14,11 +14,13 @@ public class SenderController {
 
     @GetMapping(path = "")
     public Iterable<Sender> index() {
+
         return this.service.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<Sender> show(@PathVariable Long id) {
+    public Sender show(@PathVariable Long id) {
+
         return this.service.findOne(id);
     }
 
