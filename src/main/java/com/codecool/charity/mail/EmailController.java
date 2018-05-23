@@ -29,7 +29,6 @@ public class EmailController {
 
         String body = templateEngine.process("template", context);
         emailSender.sendEmail(send, body);
-        System.out.println(body);
         return body;
     }
 }

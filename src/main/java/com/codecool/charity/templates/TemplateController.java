@@ -1,10 +1,11 @@
 package com.codecool.charity.templates;
 
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.TemplateEngine;
 
-@RestController
+@Controller
 @RequestMapping(path = "/templates")
 public class TemplateController {
 
@@ -14,22 +15,37 @@ public class TemplateController {
         this.templateServcie = templateServcie;
     }
 
-    @GetMapping("")
+    @GetMapping("/")
     public Iterable<Template> index(){
         return templateServcie.getAll();
     }
 
     @GetMapping(path = "/{id}")
-    public String getOne(@PathVariable int id){
+    public String getOne(@PathVariable int id, Model model){
 
-        return templateServcie.getOne(id);
+        Template template = templateServcie.getOne(id);
+
+        model.addAttribute("template", template);
+
+        return "template";
     }
 
-    @PostMapping(path = "")
-    public Template create(@RequestBody Template template){
+    @GetMapping("/add")
+    public String displayForm(Model model){
+
+        Template template = new Template();
+        model.addAttribute("template", template);
+
+        return "create";
+    }
+
+    @PostMapping(path = "/add")
+    public String create(@ModelAttribute Template template, Model model){
+
+        model.addAttribute("template", template);
 
         templateServcie.save(template);
-        return template;
+        return "template";
     }
 
 
