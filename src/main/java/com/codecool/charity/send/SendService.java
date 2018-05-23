@@ -32,8 +32,8 @@ public class SendService {
         MimeMessage mail = sender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(mail, true);
-            helper.setTo(send.getTo());
-            helper.setReplyTo(send.getTo());
+            helper.setTo(send.getReceiver());
+            helper.setReplyTo(send.getReceiver());
             helper.setFrom(send.getSender().getHostName());
             helper.setSubject(send.getTemplate().getTitle());
             helper.setText("template", true);
@@ -48,7 +48,7 @@ public class SendService {
     public Send createSend(SendForm form){
         Send send = new Send();
 
-        send.setTo(form.getTo());
+        send.setReceiver(form.getTo());
         send.setSender(senderService.findOne(1L));
         send.setTemplate(templateService.findOne(form.getTemplateId()));
 
