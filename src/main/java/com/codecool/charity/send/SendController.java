@@ -49,7 +49,7 @@ public class SendController {
         try {
             this.sendService.sendEmail(send, body);
         } catch (Exception e) {
-            System.out.println("Cant send this email");
+            e.printStackTrace();
         }
 
         return body;
