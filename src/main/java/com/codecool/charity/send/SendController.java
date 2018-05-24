@@ -44,7 +44,7 @@ public class SendController {
         context.setVariable("title", send.getTemplate().getTitle());
         context.setVariable("description", send.getTemplate().getDescription());
 
-        String body = templateEngine.process("temp/template", context);
+        String body = templateEngine.process("display", context);
 
         try {
             this.sendService.sendEmail(send, body);

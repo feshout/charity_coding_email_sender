@@ -2,12 +2,8 @@ package com.codecool.charity.send;
 
 import com.codecool.charity.senders.SenderService;
 import com.codecool.charity.templates.TemplateService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -15,8 +11,6 @@ import javax.mail.internet.MimeMessage;
 
 @Service
 public class SendService {
-
-    private JavaMailSender sender;
 
     private JavaMailSenderImpl javaMailSender;
     private SenderService senderService;
@@ -53,7 +47,7 @@ public class SendService {
         Send send = new Send();
 
         send.setReceiver(form.getTo());
-        send.setSender(senderService.findOne(1L));
+        send.setSender(senderService.findOne(2L));
         send.setTemplate(templateService.findOne(form.getTemplateId()));
 
         return send;

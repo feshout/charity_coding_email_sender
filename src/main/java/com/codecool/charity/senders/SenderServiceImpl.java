@@ -5,11 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Optional;
-import java.util.Properties;
 
 @Service
 @ConfigurationProperties
@@ -42,11 +38,7 @@ public class SenderServiceImpl implements SenderService {
     @Override
     public void save(Sender sender) {
 
-        if (this.repository.findSenderByHostName(sender.getHostName()) == null) {
-            this.repository.save(sender);
-        } else {
-            throw new IllegalArgumentException();
-        }
+        this.repository.save(sender);
     }
 
 
