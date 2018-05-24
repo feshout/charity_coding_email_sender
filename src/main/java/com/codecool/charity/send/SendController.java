@@ -35,7 +35,7 @@ public class SendController {
     }
 
     @PostMapping("/")
-    public String sendEmail(@ModelAttribute SendForm form){
+    public String sendEmail(@ModelAttribute SendForm form, Model model){
 
         Send send = sendService.createSend(form);
 
@@ -45,14 +45,15 @@ public class SendController {
         context.setVariable("description", send.getTemplate().getDescription());
 
         String body = templateEngine.process("display", context);
-
         try {
             this.sendService.sendEmail(send, body);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return body;
+        model.addAttribute("message", "Message sent with success");
+
+        return "sender/result";
 
     }
 
