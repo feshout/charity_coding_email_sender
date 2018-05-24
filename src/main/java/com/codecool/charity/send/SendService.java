@@ -1,6 +1,5 @@
 package com.codecool.charity.send;
 
-
 import com.codecool.charity.senders.SenderService;
 import com.codecool.charity.templates.TemplateService;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,13 +11,11 @@ import javax.mail.internet.MimeMessage;
 
 @Service
 public class SendService {
-
-
+    
     private JavaMailSender sender;
     private SenderService senderService;
     private TemplateService templateService;
-
-
+    
     public SendService(JavaMailSender sender,
                        SenderService senderService,
                        TemplateService templateService) {

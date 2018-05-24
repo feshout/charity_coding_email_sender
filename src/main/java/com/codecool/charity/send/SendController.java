@@ -35,11 +35,9 @@ public class SendController {
     }
 
     @PostMapping("/")
-    public String sendEmail(@ModelAttribute SendForm form, Model model){
+    public String sendEmail(@ModelAttribute SendForm form){
 
         Send send = sendService.createSend(form);
-
-        model.addAttribute("temp", send.getTemplate());
 
         Context context = new Context();
         context.setVariable("header", send.getTemplate().getHeader());
