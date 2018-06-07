@@ -1,6 +1,7 @@
 package com.codecool.charity.send;
 
 import com.codecool.charity.senders.SenderService;
+import com.codecool.charity.templates.Template;
 import com.codecool.charity.templates.TemplateService;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -29,7 +30,7 @@ public class SendService {
         this.templateEngine = templateEngine;
     }
 
-    void sendEmail(SendForm form, Model model) {
+    void sendEmail(EditForm form, Model model) {
         Send send = createSend(form);
         Context context = getContext(send);
         String body = templateEngine.process("display", context);
@@ -86,14 +87,23 @@ public class SendService {
         return context;
     }
 
-    private Send createSend(SendForm form){
+    private Send createSend(EditForm form){
         Send send = new Send();
+        Template temp = new Template(form.getHeader(), form.getTitle(), form.getDescription());
 
         send.setReceiver(form.getTo());
         send.setSender(senderService.findOne(5L));
-        send.setTemplate(templateService.findOne(form.getTemplateId()));
+        send.setTemplate(temp);
 
         return send;
+    }
+
+    public void updateModel(Model model, SendForm form){
+
+        EditForm editForm = new EditForm();
+        model.addAttribute("editForm", editForm);
+        model.addAttribute("temp", templateService.findOne(form.getTemplateId()));
+        model.addAttribute("sendTo", form.getTo());
     }
 
 }

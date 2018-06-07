@@ -1,5 +1,6 @@
 package com.codecool.charity.send;
 
+import com.codecool.charity.templates.TemplateService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +23,17 @@ public class SendController {
         return "sender/sendForm";
     }
 
+    @GetMapping("/edit")
+    public String editSend(@ModelAttribute SendForm form, Model model){
+
+        sendService.updateModel(model, form);
+
+        return "sender/editForm";
+
+    }
+
     @PostMapping("/")
-    public String sendEmail(@ModelAttribute SendForm form, Model model){
+    public String sendEmail(@ModelAttribute EditForm form, Model model){
 
         this.sendService.sendEmail(form, model);
         return "sender/result";
