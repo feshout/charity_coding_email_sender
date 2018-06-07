@@ -1,7 +1,9 @@
 package com.codecool.charity.passwordUtils;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+@Service
 public class VerifyUserPassword {
 
     @Value("${key.for.cipher}")
@@ -9,7 +11,7 @@ public class VerifyUserPassword {
 
     public boolean verifyUserPassword(String userPass) {
         boolean result = false;
-//        String securedPass = z bazy po id usera zalogowanego do App
+//        String securedPass = z bazy po id usera zalogowanego do Aplikacji
 //        result = PasswordUtils.verifyUserPassword(userPass, securedPass, keyForCipher);
 
         return result;

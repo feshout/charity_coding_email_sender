@@ -1,5 +1,6 @@
 package com.codecool.charity.senders;
 
+import com.codecool.charity.passwordUtils.EncryptPassword;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,11 @@ import java.util.Optional;
 public class SenderServiceImpl implements SenderService {
 
     private SenderRepository repository;
+    private EncryptPassword encryptPassword;
 
-    public SenderServiceImpl(SenderRepository repository) {
+    public SenderServiceImpl(SenderRepository repository, EncryptPassword encryptPassword) {
         this.repository = repository;
+        this.encryptPassword = encryptPassword;
     }
 
     @Override
@@ -32,8 +35,13 @@ public class SenderServiceImpl implements SenderService {
 
     @Override
     public void save(Sender sender) {
-
+        String securedPass = generateSecuredPassword(sender);
+        sender.setPassword(securedPass);
         this.repository.save(sender);
+    }
+
+    private String generateSecuredPassword(Sender sender) {
+        return this.encryptPassword.getSecuredPassword(sender.getPassword());
     }
 
 }
