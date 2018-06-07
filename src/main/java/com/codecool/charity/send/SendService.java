@@ -1,5 +1,7 @@
 package com.codecool.charity.send;
 
+import com.codecool.charity.form.EditForm;
+import com.codecool.charity.form.SendForm;
 import com.codecool.charity.senders.SenderService;
 import com.codecool.charity.templates.Template;
 import com.codecool.charity.templates.TemplateService;
