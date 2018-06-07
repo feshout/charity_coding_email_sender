@@ -1,6 +1,7 @@
 package com.codecool.charity.send;
 
-import com.codecool.charity.templates.TemplateService;
+import com.codecool.charity.form.EditForm;
+import com.codecool.charity.form.SendForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

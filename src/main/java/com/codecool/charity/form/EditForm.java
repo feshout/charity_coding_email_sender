@@ -1,4 +1,4 @@
-package com.codecool.charity.send;
+package com.codecool.charity.form;
 
 public class EditForm {
 
