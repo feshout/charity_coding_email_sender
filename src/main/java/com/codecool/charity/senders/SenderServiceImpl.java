@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-@ConfigurationProperties
-@EnableConfigurationProperties
 public class SenderServiceImpl implements SenderService {
 
     private SenderRepository repository;
