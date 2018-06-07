@@ -9,7 +9,7 @@ public class SendForm {
     public SendForm() {
     }
 
-    public SendForm(String to, Long senderId, Long templateId) {
+    public SendForm(String to, Long templateId) {
         this.to = to;
         this.templateId = templateId;
     }

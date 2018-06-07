@@ -7,7 +7,7 @@
 <body>
 <div class="container">
 
-    <form th:method="post" action="/send/" th:object="${sendForm}">
+    <form th:method="get" action="/send/edit" th:object="${sendForm}">
         Send To:
         <input type="text" th:field="*{to}"/><br/><br/>
         <table>
