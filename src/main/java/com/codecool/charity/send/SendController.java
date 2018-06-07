@@ -28,9 +28,7 @@ public class SendController {
     public String editSend(@ModelAttribute SendForm form, Model model){
 
         sendService.updateModel(model, form);
-
         return "sender/editForm";
-
     }
 
     @PostMapping("/")
