@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"hostName", "password", "id"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"hostName", "id"}))
 public class Sender {
 
     @Id
@@ -14,6 +14,7 @@ public class Sender {
     private Long id;
     private String hostName;
     private String password;
+    private String salt;
     @OneToMany(mappedBy = "sender")
     private List<Send> sent;
 
@@ -35,5 +36,13 @@ public class Sender {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }
