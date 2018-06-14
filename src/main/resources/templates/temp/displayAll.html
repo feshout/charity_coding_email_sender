@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
@@ -33,7 +33,7 @@
                 </form>
             </td>
             <td>
-                <form action="#" th:action="@{/templates/} + ${{item.id}}" method="get">
+                <form action="#" th:action="@{/templates/} + ${{temp.id}}" method="get">
                     <button th:id="${temp.id}" type="submit">
                         <i>Details</i>
                     </button>
@@ -45,3 +45,4 @@
 <a href="/templates/add">Create Item</a>
 
 </body>
+</html>

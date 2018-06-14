@@ -9,4 +9,6 @@ public interface TemplateService {
     void save(Template template);
 
     void update(Long id, Template temp);
+
+    Template remove(Long id);
 }

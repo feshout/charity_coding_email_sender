@@ -41,4 +41,11 @@ public class TemplateServiceImpl implements TemplateService {
 
         templateRepository.save(toUpdate);
     }
+
+    public Template remove(Long id){
+
+        Template temp = templateRepository.deleteById(id);
+
+        return temp;
+    }
 }

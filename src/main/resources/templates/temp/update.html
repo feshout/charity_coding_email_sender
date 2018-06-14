@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Update Item</title>
 </head>
 <body>
 <div class="creation">
-    <form th:method="put" action="#" th:action="@{/tempaltes/edit/} + ${{item.id}}" th:object="${toUpdate}">
+    <form th:method="put" action="#" th:action="@{/templates/edit/} + ${{toUpdate.id}}" th:object="${temp}">
         Product Name
-        <input type="text" th:value="${temp.header}" name="header"/><br/><br/>
+        <input type="text" th:value="${toUpdate.header}" name="header"/><br/><br/>
         Description
-        <input type="text" th:value="${temp.title}" name="title" /><br/><br/>
+        <input type="text" th:value="${toUpdate.title}" name="title" /><br/><br/>
         Manufacturer
-        <input type="text" th:value="${temp.description}" name="description" /><br/><br/>
+        <input type="text" th:value="${toUpdate.description}" name="description" /><br/><br/>
 
         <input type="submit" value="Update"/>
     </form>
