@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="creation">
+    <h1> Create Template</h1>
+    <form method="post" action="/send/" th:object="${editForm}">
+        To
+        <input type="text" th:value="${sendTo}" name="to"/><br/><br/>
+        Header
+        <input type="text" th:value="${temp.header}" name="header"/><br/><br/>
+        Title
+        <input type="text" th:value="${temp.title}" name="title"/><br/><br/>
+        Description
+        <input type="text" th:value="${temp.description}" name="description"/><br/><br/>
+
+        <input type="submit" value="Send"/>
+    </form>
+</div>
+
+</body>
+</html>

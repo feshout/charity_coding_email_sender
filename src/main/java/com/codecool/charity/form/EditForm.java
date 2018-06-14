@@ -1,29 +1,29 @@
-package com.codecool.charity.templates;
+package com.codecool.charity.form;
 
-import javax.persistence.*;
+public class EditForm {
 
-@Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"ID", "header", "title", "description"}))
-public class Template {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String header;
     private String title;
     private String description;
+    private String to;
 
-    public Template() {
+    public EditForm() {
     }
 
-    public Template(String header, String title, String description) {
+    public EditForm(String header, String title, String description, String to) {
+
         this.header = header;
         this.title = title;
         this.description = description;
+        this.to = to;
     }
 
-    public Long getId() {
-        return id;
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
     }
 
     public String getHeader() {

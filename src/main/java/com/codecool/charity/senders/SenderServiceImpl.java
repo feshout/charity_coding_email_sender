@@ -1,6 +1,6 @@
 package com.codecool.charity.senders;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.codecool.charity.passwordUtils.EncryptPassword;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
@@ -8,18 +8,14 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-@ConfigurationProperties
-@EnableConfigurationProperties
 public class SenderServiceImpl implements SenderService {
 
     private SenderRepository repository;
-    @Value("${spring.mail.username}")
-    private String username;
-    @Value("${spring.mail.password}")
-    private String password;
+    private EncryptPassword encryptPassword;
 
-    public SenderServiceImpl(SenderRepository repository) {
+    public SenderServiceImpl(SenderRepository repository, EncryptPassword encryptPassword) {
         this.repository = repository;
+        this.encryptPassword = encryptPassword;
     }
 
     @Override
@@ -37,24 +33,13 @@ public class SenderServiceImpl implements SenderService {
 
     @Override
     public void save(Sender sender) {
-
+        String securedPass = generateSecuredPassword(sender);
+        sender.setPassword(securedPass);
         this.repository.save(sender);
     }
 
-
-    public String getUsername() {
-        return username;
+    private String generateSecuredPassword(Sender sender) {
+        return this.encryptPassword.getSecuredPassword(sender.getPassword());
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
