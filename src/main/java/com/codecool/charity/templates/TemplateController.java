@@ -41,6 +41,17 @@ public class TemplateController {
         return "temp/create";
     }
 
+    @GetMapping("/edit/{id}")
+    public String displayEditForm(@PathVariable Long id, Model model){
+
+        Template toUpdate = templateService.findOne(id);
+        Template template = new Template();
+        model.addAttribute("temp", template);
+        model.addAttribute("toUpdate", toUpdate);
+
+        return "temp/update";
+    }
+
     @PostMapping("/add")
     public String create(@ModelAttribute Template template, Model model){
 
