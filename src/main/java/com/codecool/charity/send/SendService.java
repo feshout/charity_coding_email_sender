@@ -94,7 +94,7 @@ public class SendService {
         Template temp = new Template(form.getHeader(), form.getTitle(), form.getDescription());
 
         send.setReceiver(form.getTo());
-        send.setSender(senderService.findOne(5L));
+        send.setSender(senderService.findOne(1L));
         send.setTemplate(temp);
 
         return send;
