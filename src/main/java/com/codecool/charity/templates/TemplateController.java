@@ -18,7 +18,7 @@ public class TemplateController {
     @GetMapping("/")
     public String index(Model model){
 
-        model.addAttribute("templates", templateService.getAll());
+        model.addAttribute("temps", templateService.getAll());
         return "temp/displayAll";
     }
 
@@ -50,6 +50,16 @@ public class TemplateController {
         model.addAttribute("toUpdate", toUpdate);
 
         return "temp/update";
+    }
+
+    @PutMapping("edit/{id}")
+    public String update(@PathVariable Long id, @ModelAttribute Template temp, Model model){
+
+        templateService.update(id, temp);
+        model.addAttribute("temp", temp);
+
+        return "temp/template";
+
     }
 
     @PostMapping("/add")

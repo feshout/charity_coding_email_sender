@@ -30,4 +30,15 @@ public class TemplateServiceImpl implements TemplateService {
             throw new IllegalArgumentException("Object already exists");
         }
     }
+
+    public void update(Long id, Template temp){
+
+        Template toUpdate = templateRepository.findById(id);
+
+        toUpdate.setHeader(temp.getHeader());
+        toUpdate.setTitle(temp.getTitle());
+        toUpdate.setDescription(temp.getDescription());
+
+        templateRepository.save(toUpdate);
+    }
 }
