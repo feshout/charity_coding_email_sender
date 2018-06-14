@@ -52,7 +52,7 @@ public class TemplateController {
         return "temp/update";
     }
 
-    @PutMapping("edit/{id}")
+    @PutMapping("/edit/{id}")
     public String update(@PathVariable Long id, @ModelAttribute Template temp, Model model){
 
         templateService.update(id, temp);
@@ -61,6 +61,16 @@ public class TemplateController {
         return "temp/template";
 
     }
+
+    @DeleteMapping("delete/{id}")
+    public String delete(@PathVariable Long id, Model model){
+
+        Template temp = templateService.remove(id);
+        model.addAttribute("temp", temp);
+
+        return "temp/displayAll";
+    }
+
 
     @PostMapping("/add")
     public String create(@ModelAttribute Template template, Model model){
