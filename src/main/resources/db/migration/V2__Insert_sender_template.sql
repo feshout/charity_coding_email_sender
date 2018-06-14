@@ -1,0 +1,2 @@
+INSERT INTO public.sender (id, host_name, password) VALUES (1, 'charitycoding@gmail.com', 'Qwert2314');
+INSERT INTO public.template (id, description, header, title) VALUES (1, 'description update', 'header', 'title');
