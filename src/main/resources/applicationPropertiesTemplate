@@ -1,19 +1,18 @@
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
+spring.mail.username="dupa@gmail.com"
+spring.mail.password="1234"
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 spring.mail.properties.mail.smtp.starttls.required=false
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/mailservice
-spring.datasource.username=feshout
-spring.datasource.password=zaq12wsx
+spring.datasource.username=<userName>
+spring.datasource.password=<password>
 spring.jpa.hibernate.ddl-auto=validate
 spring.datasource.initialize=false
 flyway.enabled=true
 flyway.baseline-on-migrate=true
 
-key.for.cipher=bqpxuhRtNXRwzq3Vwdo4NwJaQkNNVZ
 
 
-#172.17.0.1
-#192.168.11.83
