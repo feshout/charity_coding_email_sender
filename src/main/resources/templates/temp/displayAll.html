@@ -1,25 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
 <div>
-    <table class="container">
+    <table class="wrapper">
         <tr>
             <th></th>
-            <th>Title</th>
             <th>Header</th>
+            <th>Title</th>
             <th>Description</th>
         </tr>
-        <tr th:each ="template: ${templates}">
-            <td th:utext="${template.title}">...</td>
-            <td th:utext="${template.header}">...</td>
-            <td th:utext="${template.description}">...</td>
+        <tr th:each ="temp: ${temps}">
+            <td>
+                <form action="#" th:action="@{/templates/edit/} + ${{temp.id}}" th:method="get">
+                    <button th:id="${temp.id}" type="submit">
+                        <i>Edit</i>
+                    </button>
+                </form>
+            </td>
+            <td th:utext="${temp.header}">...</td>
+            <td th:utext="${temp.title}">...</td>
+            <td th:utext="${temp.description}">...</td>
+            <td>
+                <form action="#" th:action="@{/templates/delete/} + ${{temp.id}}" th:method="delete">
+                    <button th:id="${temp.id}" type="submit">
+                        <i>Delete</i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form action="#" th:action="@{/templates/} + ${{item.id}}" method="get">
+                    <button th:id="${temp.id}" type="submit">
+                        <i>Details</i>
+                    </button>
+                </form>
+            </td>
         </tr>
     </table>
 </div>
+<a href="/templates/add">Create Item</a>
 
 </body>
-</html>
