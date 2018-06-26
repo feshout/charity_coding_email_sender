@@ -134,16 +134,8 @@ public class SendService {
         model.addAttribute("sendTo", form.getTo());
     }
 
-    public String geteMail() {
-        return eMail;
-    }
-
     public void seteMail(String eMail) {
         this.eMail = eMail;
-    }
-
-    public StringBuilder getPassword() {
-        return password;
     }
 
     public void setPassword(StringBuilder password) {

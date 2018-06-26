@@ -20,8 +20,6 @@ public class SendController {
     @GetMapping("/")
     public String displayForm(Model model){
         this.sendService.setUser();
-        System.out.println(sendService.geteMail());
-        System.out.println(sendService.getPassword());
         this.sendService.displayForm(model);
         return "sender/sendForm";
     }
