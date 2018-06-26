@@ -29,4 +29,9 @@ public class SenderController {
         this.service.save(sender);
         return sender;
     }
+
+    @DeleteMapping(path = "/{id}")
+    public void delete(@PathVariable Long id) {
+        this.service.remove(id);
+    }
 }
