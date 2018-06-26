@@ -1,7 +1,6 @@
 package com.codecool.charity.send;
 
 
-import com.codecool.charity.senders.Sender;
 import com.codecool.charity.templates.Template;
 
 import javax.persistence.*;
@@ -13,12 +12,6 @@ public class Send {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String receiver;
-
-//    cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-    private Sender sender;
-
 
 //    cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}
     @OneToOne
@@ -33,20 +26,12 @@ public class Send {
         return receiver;
     }
 
-    public Sender getSender() {
-        return sender;
-    }
-
     public Template getTemplate() {
         return template;
     }
 
     public void setReceiver(String receiver) {
         this.receiver = receiver;
-    }
-
-    public void setSender(Sender sender) {
-        this.sender = sender;
     }
 
     public void setTemplate(Template template) {

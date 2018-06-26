@@ -19,7 +19,7 @@ public class SendController {
 
     @GetMapping("/")
     public String displayForm(Model model){
-
+        this.sendService.setUser();
         this.sendService.displayForm(model);
         return "sender/sendForm";
     }
@@ -33,7 +33,6 @@ public class SendController {
 
     @PostMapping("/")
     public String sendEmail(@ModelAttribute EditForm form, Model model){
-
         this.sendService.sendEmail(form, model);
         return "sender/result";
     }
