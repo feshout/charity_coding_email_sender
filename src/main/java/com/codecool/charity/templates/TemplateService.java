@@ -10,5 +10,5 @@ public interface TemplateService {
 
     void update(Long id, Template temp);
 
-    Template remove(Long id);
+    void remove(Long id);
 }
