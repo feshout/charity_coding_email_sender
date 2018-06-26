@@ -65,10 +65,9 @@ public class TemplateController {
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id, Model model){
 
-        Template temp = templateService.remove(id);
-        model.addAttribute("temp", temp);
+        templateService.remove(id);
 
-        return "temp/displayAll";
+        return "redirect:/templates/";
     }
 
 
