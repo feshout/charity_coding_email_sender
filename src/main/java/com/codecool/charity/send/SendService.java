@@ -2,9 +2,10 @@ package com.codecool.charity.send;
 
 import com.codecool.charity.form.EditForm;
 import com.codecool.charity.form.SendForm;
-import com.codecool.charity.senders.SenderService;
 import com.codecool.charity.templates.Template;
 import com.codecool.charity.templates.TemplateService;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -14,20 +15,23 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 @Service
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class SendService {
 
+    private String eMail;
+    private StringBuilder password;
+    private boolean isConnected = false;
     private JavaMailSenderImpl javaMailSender;
-    private SenderService senderService;
     private TemplateService templateService;
     private TemplateEngine templateEngine;
 
     public SendService(JavaMailSenderImpl javaMailSender,
-                       SenderService senderService,
                        TemplateService templateService, TemplateEngine templateEngine) {
         this.javaMailSender = javaMailSender;
-        this.senderService = senderService;
         this.templateService = templateService;
         this.templateEngine = templateEngine;
     }
@@ -55,7 +59,6 @@ public class SendService {
 
     private void prepareAndSendEmail(Send send, String body) {
 
-        setUser(send);
         MimeMessage mail = javaMailSender.createMimeMessage();
         setMimeMessageHelper(mail, send, body);
         javaMailSender.send(mail);
@@ -65,7 +68,7 @@ public class SendService {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(mail, true);
             helper.setTo(send.getReceiver());
-            helper.setReplyTo(send.getSender().getHostName());
+            helper.setReplyTo(eMail);
             helper.setSubject(send.getTemplate().getTitle());
             helper.setText(body, true);
 
@@ -74,9 +77,33 @@ public class SendService {
         }
     }
 
-    private void setUser(Send send) {
-        javaMailSender.setUsername(send.getSender().getHostName());
-        javaMailSender.setPassword(send.getSender().getPassword());
+    public void setUser() {
+        Scanner sc = new Scanner(System.in);
+
+        while(!isConnected) {
+            System.out.println("Enter email: ");
+            eMail = sc.next();
+            System.out.println("Enter password: ");
+            password = new StringBuilder(sc.next());
+
+            javaMailSender.setUsername(eMail);
+            javaMailSender.setPassword(password.toString());
+
+            if(verifyLoginAndPassword()) {
+                isConnected = true;
+            }
+        }
+    }
+
+    private boolean verifyLoginAndPassword() {
+        try {
+            javaMailSender.testConnection();
+        } catch (MessagingException e) {
+            System.out.println("WRONG DATA PROVIDED");
+            return false;
+        }
+        System.out.println("CORRECT DATA PROVIDED");
+        return true;
     }
 
 
@@ -94,7 +121,6 @@ public class SendService {
         Template temp = new Template(form.getHeader(), form.getTitle(), form.getDescription());
 
         send.setReceiver(form.getTo());
-        send.setSender(senderService.findOne(1L));
         send.setTemplate(temp);
 
         return send;
@@ -108,4 +134,19 @@ public class SendService {
         model.addAttribute("sendTo", form.getTo());
     }
 
+    public String geteMail() {
+        return eMail;
+    }
+
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
+
+    public StringBuilder getPassword() {
+        return password;
+    }
+
+    public void setPassword(StringBuilder password) {
+        this.password = password;
+    }
 }
