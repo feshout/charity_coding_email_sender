@@ -10,7 +10,9 @@ public interface SenderRepository extends CrudRepository<Sender, Long> {
 
     Iterable<Sender> findAll();
 
-    Optional<Sender> findById(Long id);
+    Sender findById(Long id);
 
     Sender findSenderByHostName(String hostName);
+
+    void delete(Sender sender);
 }

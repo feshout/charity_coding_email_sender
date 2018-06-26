@@ -27,14 +27,18 @@ public class SenderServiceImpl implements SenderService {
     @Override
     public Sender findOne(Long id) {
 
-        Optional<Sender> sender = repository.findById(id);
+        Sender sender = repository.findById(id);
+        return sender;
+    }
 
-        return sender.get();
+    @Override
+    public void remove(Long id) {
+        this.repository.delete(this.repository.findById(id));
     }
 
     @Override
     public void save(Sender sender) {
-        sender.setSalt(PasswordUtils.getSalt(113));
+        sender.setSalt(PasswordUtils.getSalt(2));
         String securedPass = generateSecuredPassword(sender);
         sender.setPassword(securedPass);
         this.repository.save(sender);
