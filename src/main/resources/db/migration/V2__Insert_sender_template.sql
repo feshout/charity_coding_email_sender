@@ -1,2 +1,1 @@
-INSERT INTO public.sender (id, host_name, password) VALUES (1, 'charitycoding@gmail.com', 'Qwert2314');
-INSERT INTO public.template (id, description, header, title) VALUES (1, 'description update', 'header', 'title');
+INSERT INTO template (id, description, header, title, update_date) VALUES (1, 'description update', 'header', 'title', CURRENT_TIMESTAMP);

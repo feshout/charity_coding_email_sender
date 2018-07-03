@@ -1,6 +1,7 @@
 package com.codecool.charity.templates;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"ID", "header", "title", "description"}))
@@ -12,14 +13,16 @@ public class Template {
     private String header;
     private String title;
     private String description;
+    private Date updateDate;
 
     public Template() {
     }
 
-    public Template(String header, String title, String description) {
+    public Template(String header, String title, String description, Date updateDate) {
         this.header = header;
         this.title = title;
         this.description = description;
+        this.updateDate = updateDate;
     }
 
     public Long getId() {
@@ -48,5 +51,14 @@ public class Template {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 }
