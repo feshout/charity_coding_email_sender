@@ -3,6 +3,8 @@ package com.codecool.charity.templates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class TemplateServiceImpl implements TemplateService {
 
@@ -25,6 +27,7 @@ public class TemplateServiceImpl implements TemplateService {
     public void save(Template template){
 
         if (templateRepository.findTemplateByHeader(template.getHeader()) == null){
+            template.setUpdateDate(new Date());
             templateRepository.save(template);
         } else {
             throw new IllegalArgumentException("Object already exists");
@@ -38,6 +41,7 @@ public class TemplateServiceImpl implements TemplateService {
         toUpdate.setHeader(temp.getHeader());
         toUpdate.setTitle(temp.getTitle());
         toUpdate.setDescription(temp.getDescription());
+        toUpdate.setUpdateDate(new Date());
 
         templateRepository.save(toUpdate);
     }
