@@ -18,6 +18,12 @@ public class Template {
     public Template() {
     }
 
+    public Template(String header, String title, String description) {
+        this.header = header;
+        this.title = title;
+        this.description = description;
+    }
+
     public Template(String header, String title, String description, Date updateDate) {
         this.header = header;
         this.title = title;

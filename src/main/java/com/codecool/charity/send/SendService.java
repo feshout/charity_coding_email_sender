@@ -16,7 +16,6 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.util.Date;
 
 
 @Service
@@ -113,8 +112,8 @@ public class SendService {
         Send send = new Send();
         Template temp = new Template(form.getHeader(),
                 form.getTitle(),
-                form.getDescription(),
-                new Date());
+                form.getDescription()
+        );
 
         send.setReceiver(form.getTo());
         send.setTemplate(temp);
