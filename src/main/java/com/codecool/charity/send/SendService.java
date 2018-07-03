@@ -16,6 +16,7 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.Date;
 
 
 @Service
@@ -27,12 +28,14 @@ public class SendService {
     private JavaMailSenderImpl javaMailSender;
     private TemplateService templateService;
     private TemplateEngine templateEngine;
+    private SendRepository repository;
 
     public SendService(JavaMailSenderImpl javaMailSender,
-                       TemplateService templateService, TemplateEngine templateEngine) {
+                       TemplateService templateService, TemplateEngine templateEngine, SendRepository repository) {
         this.javaMailSender = javaMailSender;
         this.templateService = templateService;
         this.templateEngine = templateEngine;
+        this.repository = repository;
     }
 
     void sendEmail(EditForm form, Model model) {
@@ -45,7 +48,7 @@ public class SendService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        this.repository.save(send);
         model.addAttribute("message", "Message sent with success");
     }
 
@@ -117,6 +120,7 @@ public class SendService {
 
         send.setReceiver(form.getTo());
         send.setTemplate(temp);
+        send.setDate(new Date());
 
         return send;
     }
