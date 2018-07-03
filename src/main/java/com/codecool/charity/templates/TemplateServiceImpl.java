@@ -24,7 +24,7 @@ public class TemplateServiceImpl implements TemplateService {
 
         List<Template> templates = new ArrayList<>();
         templateRepository.findAll().forEach(templates::add);
-        templates.sort(sortByDate);
+        templates.sort(Template.sortByDate);
 
         return templates;
     }
@@ -56,19 +56,4 @@ public class TemplateServiceImpl implements TemplateService {
         Template template = templateRepository.findById(id);
         templateRepository.delete(template);
     }
-
-    private Comparator<Template> sortByDate = (o1, o2) -> {
-
-        if (o1.getUpdateDate().before(o2.getUpdateDate())){
-            return 1;
-        } else if (o1.getUpdateDate().after(o2.getUpdateDate())){
-            return -1;
-        } else {
-            return 0;
-        }
-    };
-
-
-
-
 }
