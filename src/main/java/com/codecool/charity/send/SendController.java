@@ -1,6 +1,7 @@
 package com.codecool.charity.send;
 
 import com.codecool.charity.form.EditForm;
+import com.codecool.charity.form.LoginForm;
 import com.codecool.charity.form.SendForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +20,18 @@ public class SendController {
 
     @GetMapping("/")
     public String displayForm(Model model){
-        this.sendService.setUser();
+
+        model.addAttribute("loginForm", new LoginForm());
+        model.addAttribute("isConnected", sendService.isConnected());
         this.sendService.displayForm(model);
         return "sender/sendForm";
+    }
+
+    @PostMapping("/login")
+    public String loginForm(@ModelAttribute LoginForm loginForm) {
+
+        this.sendService.setUser(loginForm);
+        return "redirect:/send/";
     }
 
     @GetMapping("/edit")
