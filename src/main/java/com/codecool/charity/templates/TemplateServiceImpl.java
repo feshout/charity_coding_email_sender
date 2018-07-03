@@ -3,7 +3,7 @@ package com.codecool.charity.templates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.*;
 
 @Service
 public class TemplateServiceImpl implements TemplateService {
@@ -21,7 +21,12 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     public Iterable<Template> getAll(){
-        return templateRepository.findAll();
+
+        List<Template> templates = new ArrayList<>();
+        templateRepository.findAll().forEach(templates::add);
+        templates.sort(sortByDate);
+
+        return templates;
     }
 
     public void save(Template template){
@@ -51,4 +56,19 @@ public class TemplateServiceImpl implements TemplateService {
         Template template = templateRepository.findById(id);
         templateRepository.delete(template);
     }
+
+    private Comparator<Template> sortByDate = (o1, o2) -> {
+
+        if (o1.getUpdateDate().before(o2.getUpdateDate())){
+            return 1;
+        } else if (o1.getUpdateDate().after(o2.getUpdateDate())){
+            return -1;
+        } else {
+            return 0;
+        }
+    };
+
+
+
+
 }
