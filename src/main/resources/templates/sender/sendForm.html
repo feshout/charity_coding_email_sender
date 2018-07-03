@@ -8,7 +8,7 @@
           crossorigin="anonymous"/>
 </head>
 <body>
-    <div class="col-10 mx-auto mt-3">
+    <div class="col-10 mx-auto mt-3" th:if="${isConnected} == true">
         <h1 class="text-center">Send mail</h1>
         <form th:method="GET" th:action="@{/send/edit}" th:object="${sendForm}">
             <div class="form-group">
@@ -29,31 +29,20 @@
         </form>
     </div>
 
-    <!-- LOGIN MODAL -->
     <div th:if="${isConnected} == false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Login</h5>
-                    <button class="close" data-dismiss="modal">&times;</button>
+        <div class="container col-4 mx-auto mt-3 p-5 border rounded">
+            <h2 class="text-center mb-2">Login</h2>
+            <form th:action="@{./login}" th:method="POST" method="post" th:object="${loginForm}">
+                <div class="form-group">
+                    <label class="pl-1">Email</label>
+                    <input type="text" placeholder="example@email.com" class="form-control" th:field="*{email}"/>
                 </div>
-                <div class="modal-body">
-                    <form th:action="@{./login}" th:method="POST" method="post" th:object="${loginForm}">
-                        <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" placeholder="Username" class="form-control" th:field="*{email}"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" placeholder="Password" class="form-control" th:field="*{password}"/>
-                        </div>
-                        <input th:type="submit" th:value="Login" value="Login" class="btn btn-success"/>
-                    </form>
+                <div class="form-group">
+                    <label class="pl-1">Password</label>
+                    <input type="password" placeholder="********" class="form-control" th:field="*{password}"/>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" data-dismiss="modal">Login</button>
-                </div>
-            </div>
+                <input th:type="submit" th:value="Login" value="Login" class="btn btn-success col-8 offset-2"/>
+            </form>
         </div>
     </div>
 </body>
