@@ -6,6 +6,7 @@ import com.codecool.charity.templates.Template;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "sent")
 public class Send {
 
     @Id
