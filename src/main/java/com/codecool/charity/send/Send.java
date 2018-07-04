@@ -4,18 +4,18 @@ package com.codecool.charity.send;
 import com.codecool.charity.templates.Template;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
+@Table(name = "sent")
 public class Send {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String receiver;
-
-//    cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}
-    @OneToOne
-    @JoinColumn(name = "template_id")
+    private Date date;
+    @Transient
     private Template template;
 
     public Long getId() {
@@ -37,4 +37,13 @@ public class Send {
     public void setTemplate(Template template) {
         this.template = template;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }
+

@@ -1,0 +1,1 @@
+Alter table send rename to sent;

@@ -1,6 +1,7 @@
 package com.codecool.charity.send;
 
 import com.codecool.charity.form.EditForm;
+import com.codecool.charity.form.LoginForm;
 import com.codecool.charity.form.SendForm;
 import com.codecool.charity.templates.Template;
 import com.codecool.charity.templates.TemplateService;
@@ -15,26 +16,26 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
+
 
 @Service
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class SendService {
 
     private String eMail;
-    private StringBuilder password;
     private boolean isConnected = false;
     private JavaMailSenderImpl javaMailSender;
     private TemplateService templateService;
     private TemplateEngine templateEngine;
+    private SendRepository repository;
 
     public SendService(JavaMailSenderImpl javaMailSender,
-                       TemplateService templateService, TemplateEngine templateEngine) {
+                       TemplateService templateService, TemplateEngine templateEngine, SendRepository repository) {
         this.javaMailSender = javaMailSender;
         this.templateService = templateService;
         this.templateEngine = templateEngine;
+        this.repository = repository;
     }
 
     void sendEmail(EditForm form, Model model) {
@@ -47,7 +48,7 @@ public class SendService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        this.repository.save(send);
         model.addAttribute("message", "Message sent with success");
     }
 
@@ -78,31 +79,24 @@ public class SendService {
         }
     }
 
-    public void setUser() {
-        Scanner sc = new Scanner(System.in);
+    public void setUser(LoginForm loginForm) {
 
-        while(!isConnected) {
-            System.out.println("Enter email: ");
-            eMail = sc.next();
-            System.out.println("Enter password: ");
-            password = new StringBuilder(sc.next());
+            javaMailSender.setUsername(loginForm.getEmail());
+            javaMailSender.setPassword(loginForm.getPassword());
 
-            javaMailSender.setUsername(eMail);
-            javaMailSender.setPassword(password.toString());
-
-            if(verifyLoginAndPassword()) {
+            if(verifyLoginAndPassword(loginForm)) {
                 isConnected = true;
             }
-        }
     }
 
-    private boolean verifyLoginAndPassword() {
+    private boolean verifyLoginAndPassword(LoginForm loginForm) {
         try {
             javaMailSender.testConnection();
         } catch (MessagingException e) {
             System.out.println("WRONG DATA PROVIDED");
             return false;
         }
+        this.eMail = loginForm.getEmail();
         System.out.println("CORRECT DATA PROVIDED");
         return true;
     }
@@ -121,11 +115,12 @@ public class SendService {
         Send send = new Send();
         Template temp = new Template(form.getHeader(),
                 form.getTitle(),
-                form.getDescription(),
-                new Date());
+                form.getDescription()
+        );
 
         send.setReceiver(form.getTo());
         send.setTemplate(temp);
+        send.setDate(new Date());
 
         return send;
     }
@@ -142,7 +137,7 @@ public class SendService {
         this.eMail = eMail;
     }
 
-    public void setPassword(StringBuilder password) {
-        this.password = password;
+    public boolean isConnected() {
+        return isConnected;
     }
 }

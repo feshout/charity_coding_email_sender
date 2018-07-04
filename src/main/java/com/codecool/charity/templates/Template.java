@@ -1,6 +1,7 @@
 package com.codecool.charity.templates;
 
 import javax.persistence.*;
+import java.util.Comparator;
 import java.util.Date;
 
 @Entity
@@ -16,6 +17,12 @@ public class Template {
     private Date updateDate;
 
     public Template() {
+    }
+
+    public Template(String header, String title, String description) {
+        this.header = header;
+        this.title = title;
+        this.description = description;
     }
 
     public Template(String header, String title, String description, Date updateDate) {
@@ -61,4 +68,15 @@ public class Template {
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
+
+    static Comparator<Template> sortByDate = (o1, o2) -> {
+
+        if (o1.getUpdateDate().before(o2.getUpdateDate())){
+            return 1;
+        } else if (o1.getUpdateDate().after(o2.getUpdateDate())){
+            return -1;
+        } else {
+            return 0;
+        }
+    };
 }
