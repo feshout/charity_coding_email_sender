@@ -3,9 +3,14 @@ package com.codecool.charity.send;
 import com.codecool.charity.form.EditForm;
 import com.codecool.charity.form.LoginForm;
 import com.codecool.charity.form.SendForm;
+import com.codecool.charity.templates.Template;
+import com.codecool.charity.templates.TemplateService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+import java.util.Set;
 
 
 @Controller
@@ -13,9 +18,11 @@ import org.springframework.web.bind.annotation.*;
 public class SendController {
 
     private SendService sendService;
+    private TemplateService templateService;
 
-    public SendController(SendService sendService) {
+    public SendController(SendService sendService, TemplateService templateService) {
         this.sendService = sendService;
+        this.templateService = templateService;
     }
 
     @GetMapping("/")
@@ -37,8 +44,23 @@ public class SendController {
     @GetMapping("/edit")
     public String editSend(@ModelAttribute SendForm form, Model model){
 
-        sendService.updateModel(model, form);
+
+        Set<String> fields = sendService.getContentFields(templateService.findOne(form.getTemplateId()));
+        EditForm editForm = new EditForm();
+        model.addAttribute("fields", fields);
+        model.addAttribute("editForm", editForm);
+        model.addAttribute("temp", templateService.findOne(form.getTemplateId()));
+        model.addAttribute("sendTo", form.getTo());
         return "sender/editForm";
+    }
+
+    @PostMapping("/edit")
+    public String fillFields(@ModelAttribute EditForm form, Model model, @RequestParam Map<String, String> params) {
+
+        EditForm filledForm = sendService.fillContent(form, params);
+        this.sendService.sendEmail(filledForm, model);
+
+        return "sender/result";
     }
 
     @PostMapping("/")
