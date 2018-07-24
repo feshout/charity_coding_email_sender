@@ -16,7 +16,9 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.util.Date;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Service
@@ -125,13 +127,6 @@ public class SendService {
         return send;
     }
 
-    public void updateModel(Model model, SendForm form){
-
-        EditForm editForm = new EditForm();
-        model.addAttribute("editForm", editForm);
-        model.addAttribute("temp", templateService.findOne(form.getTemplateId()));
-        model.addAttribute("sendTo", form.getTo());
-    }
 
     public void seteMail(String eMail) {
         this.eMail = eMail;
@@ -139,5 +134,45 @@ public class SendService {
 
     public boolean isConnected() {
         return isConnected;
+    }
+
+    public Set<String> getContentFields(Template template) {
+
+        Set<String> fields = new LinkedHashSet<>();
+
+        final String regex = "\\{(\\w+)\\}";
+        String content = template.getDescription();
+
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(content);
+
+        while (matcher.find()){
+            fields.add(matcher.group().substring(1, matcher.group().length() -1));
+        }
+
+        return fields;
+    }
+
+    public EditForm fillContent(EditForm editForm, Map<String,String> params){
+
+        String content = editForm.getDescription();
+
+        final String regex = "\\{(\\w+)\\}";
+
+        StringBuffer stringBuffer;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(content);
+
+        while (matcher.find()) {
+            if(params.containsKey(matcher.group().substring(1, matcher.group().length() -1))){
+                matcher.appendReplacement(stringBuffer = new StringBuffer()  , params.get(matcher.group().substring(1, matcher.group().length() -1)));
+                stringBuilder.append(stringBuffer.toString());
+            }
+        }
+
+        editForm.setDescription(stringBuilder.toString());
+        return editForm;
     }
 }
