@@ -10,7 +10,7 @@
 <body>
 <div class="col-10 mx-auto mt-3">
     <h1 class="text-center">Send email</h1>
-    <form method="POST" action="/send/" th:object="${editForm}">
+    <form method="POST" action="/send/edit" th:object="${editForm}">
         <div class="form-group">
             <label>Send to</label>
             <input class="form-control" type="text" th:value="${sendTo}" name="to"/>
@@ -26,6 +26,11 @@
         <div class="form-group">
             <label>Description</label>
             <textarea class="form-control" rows="8" type="text" th:text="${temp.description}" name="description"></textarea>
+        </div>
+        <h3>Required Fields</h3>
+        <div class="form-group" th:each="field : ${fields}">
+            <label th:text="${field}" class="text-capitalize"></label>
+            <input class="form-control" th:name="${field}" />
         </div>
         <input type="button" value="Send" class="btn btn-success col-4 offset-4" data-toggle="modal" data-target="#save"/>
 
