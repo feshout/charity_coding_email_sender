@@ -10,7 +10,7 @@
 <body>
     <div class="col-10 mx-auto mt-3" th:if="${isConnected} == true">
         <h1 class="text-center">Send mail</h1>
-        <form th:method="GET" th:action="@{/send/edit}" th:object="${sendForm}">
+        <form th:method="GET" th:action="@{/mail/send/edit}" th:object="${sendForm}">
             <div class="form-group">
                 <label>Send to:</label>
                 <input class="form-control" th:type="text" th:field="*{to}"/>

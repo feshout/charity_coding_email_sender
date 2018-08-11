@@ -10,7 +10,7 @@
 <body>
     <div class="col-10 mx-auto mt-3">
         <h1 class="text-center">Create Template</h1>
-        <form method="post" action="/templates/add/" th:object="${temp}">
+        <form method="post" action="/mail/templates/add/" th:object="${temp}">
             <div class="form-group">
                 <label>Header</label>
                 <input class="form-control" type="text" th:field="*{header}"/>
