@@ -10,7 +10,7 @@
 <body>
     <div class="col-10 mx-auto mt-3">
         <h1 class="text-center">Update Template</h1>
-        <form th:method="put" action="#" th:action="@{/templates/edit/} + ${{toUpdate.id}}" th:object="${temp}">
+        <form th:method="put" action="#" th:action="@{/mail/templates/edit/} + ${{toUpdate.id}}" th:object="${temp}">
             <div class="form-group">
                 <label>Header</label>
                 <input class="form-control" type="text" th:value="${toUpdate.header}" name="header"/>

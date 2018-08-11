@@ -10,7 +10,7 @@
 <body>
 <div class="col-10 mx-auto mt-3">
     <h1 class="text-center">Send email</h1>
-    <form method="POST" action="/send/edit" th:object="${editForm}">
+    <form method="POST" action="/mail/send/edit" th:object="${editForm}">
         <div class="form-group">
             <label>Send to</label>
             <input class="form-control" type="text" th:value="${sendTo}" name="to"/>
